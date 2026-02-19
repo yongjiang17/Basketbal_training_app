@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="zh-CN"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1">&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1">&lt;title&gt;篮球训练&lt;/title&gt;</p>
+<p class="p1">&lt;style&gt;</p>
+<p class="p1">body {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-family: Arial, sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: #111;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>height: 100vh;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>text-align: center;</p>
+<p class="p1">}</p>
+<p class="p1">.container {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>width: 90%;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>max-width: 400px;</p>
+<p class="p1">}</p>
+<p class="p1">h1 {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 22px;</p>
+<p class="p1">}</p>
+<p class="p1">.exercise {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 24px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin: 20px 0;</p>
+<p class="p1">}</p>
+<p class="p1">.timer {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 48px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin: 20px 0;</p>
+<p class="p1">}</p>
+<p class="p1">button {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin: 10px 0;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 18px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>cursor: pointer;</p>
+<p class="p1">}</p>
+<p class="p1">.start { background: #2ecc71; color: white; }</p>
+<p class="p1">.next { background: #3498db; color: white; }</p>
+<p class="p1">&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div class="container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;h1&gt;篮球入门专项训练&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="exercise" id="exerciseName"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="timer" id="timer"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;button class="start" onclick="startTimer()"&gt;开始&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;button class="next" onclick="nextExercise()"&gt;完成当前动作&lt;/button&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1">const workout = [</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{ name: "动态热身", duration: 60 },</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{ name: "10米加速跑", duration: 45 },</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{ name: "5-10-5折返跑", duration: 60 },</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{ name: "原地纵跳", duration: 45 },</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{ name: "平板支撑", duration: 60 }</p>
+<p class="p1">];</p>
+<p class="p2"><br></p>
+<p class="p1">let currentIndex = 0;</p>
+<p class="p1">let timeLeft = workout[0].duration;</p>
+<p class="p1">let timerInterval = null;</p>
+<p class="p2"><br></p>
+<p class="p1">function updateDisplay() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById("exerciseName").innerText = workout[currentIndex].name;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById("timer").innerText = timeLeft + "s";</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function startTimer() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>clearInterval(timerInterval);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>timerInterval = setInterval(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>timeLeft--;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>updateDisplay();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (timeLeft &lt;= 0) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>clearInterval(timerInterval);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>alert("时间到！");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}, 1000);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function nextExercise() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>clearInterval(timerInterval);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>currentIndex++;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (currentIndex &gt;= workout.length) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.body.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h1&gt;训练完成 🎉&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;做得很好！&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>timeLeft = workout[currentIndex].duration;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>updateDisplay();</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">updateDisplay();</p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
